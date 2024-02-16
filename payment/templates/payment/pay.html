@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="redirectForm" action="{{esewa_url}}" method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        id="amount"
+        name="amount"
+        value="{{amount}}"
+        required
+      />
+      <input
+        type="text"
+        id="tax_amount"
+        name="tax_amount"
+        value="{{tax_amount}}"
+        placeholder="tax_amount"
+        required
+      />
+      <input
+        type="text"
+        id="total_amount"
+        name="total_amount"
+        value="{{total_amount}}"
+        placeholder="total_amount"
+        required
+      />
+      <input
+        type="text"
+        id="transaction_uuid"
+        name="transaction_uuid"
+        placeholder="transaction_uuid"
+        value="{{transaction_uuid}}"
+        required
+      />
+      <input
+        type="text"
+        id="product_code"
+        name="product_code"
+        value="{{product_code}}"
+        placeholder="product_code"
+        required
+      />
+      <input
+        type="text"
+        id="product_service_charge"
+        name="product_service_charge"
+        value="{{product_service_charge}}"
+        placeholder="product_service_charge"
+        required
+      />
+      <input
+        type="text"
+        id="product_delivery_charge"
+        name="product_delivery_charge"
+        placeholder="product_delivery_charge"
+        value="{{product_delivery_charge}}"
+        required
+      />
+      <input
+        type="text"
+        id="success_url"
+        name="success_url"
+        value="{{success_url}}"
+        required
+      />
+      <input
+        type="text"
+        id="failure_url"
+        name="failure_url"
+        value="{{failure_url}}"
+        required
+      />
+      <input
+        type="text"
+        id="signed_field_names"
+        name="signed_field_names"
+        value="{{signed_field_names}}"
+        required
+      />
+      <input
+        type="text"
+        id="signature"
+        name="signature"
+        value="{{signature}}"
+        required
+      />
+    </form>
+
+    <script>
+      // Submit the form automatically when the page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+          document.getElementById("redirectForm").submit();
+        }, 10000);
+        // document.getElementById("redirectForm").submit();
+      });
+    </script>
+  </body>
+</html>

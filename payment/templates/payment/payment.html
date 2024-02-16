@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+  </head>
+  <body>
+    <form method="POST">
+      {% csrf_token %}
+      <input
+        type="text"
+        id="amount"
+        name="amount"
+        placeholder="Amount to Pay"
+        required
+      />
+      <input
+        type="text"
+        id="tax_amount"
+        name="tax_amount"
+        value="10"
+        placeholder="Tax Amount"
+        required
+      />
+      <input
+        type="text"
+        id="product_service_charge"
+        name="product_service_charge"
+        value="{{service_charge}}"
+        placeholder="Service Charge"
+        disabled
+      />
+      <input
+        type="text"
+        id="product_delivery_charge"
+        name="product_delivery_charge"
+        placeholder="Delivery Charge"
+        value="{{delivery_charge}}"
+        disabled
+      />
+      <button type="submit">Pay with eSewa</button>
+    </form>
+  </body>
+</html>
