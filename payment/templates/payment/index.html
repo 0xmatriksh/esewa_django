@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      action="https://rc-epay.esewa.com.np/api/epay/main/v2/form"
+      method="POST"
+    >
+      <input type="text" id="amount" name="amount" value="100" required />
+      <input
+        type="text"
+        id="tax_amount"
+        name="tax_amount"
+        value="10"
+        placeholder="tax_amount"
+        required
+      />
+      <input
+        type="text"
+        id="total_amount"
+        name="total_amount"
+        value="110"
+        placeholder="total_amount"
+        required
+      />
+      <input
+        type="text"
+        id="transaction_uuid"
+        name="transaction_uuid"
+        placeholder="transaction_uuid"
+        value="{{transaction_code}}"
+        required
+      />
+      <input
+        type="text"
+        id="product_code"
+        name="product_code"
+        value="EPAYTEST"
+        placeholder="product_code"
+        required
+      />
+      <input
+        type="text"
+        id="product_service_charge"
+        name="product_service_charge"
+        value="0"
+        placeholder="product_service_charge"
+        required
+      />
+      <input
+        type="text"
+        id="product_delivery_charge"
+        name="product_delivery_charge"
+        placeholder="product_delivery_charge"
+        value="0"
+        required
+      />
+      <input
+        type="text"
+        id="success_url"
+        name="success_url"
+        value="https://esewa.com.np"
+        required
+      />
+      <input
+        type="text"
+        id="failure_url"
+        name="failure_url"
+        value="https://google.com"
+        required
+      />
+      <input
+        type="text"
+        id="signed_field_names"
+        name="signed_field_names"
+        value="total_amount,transaction_uuid,product_code"
+        required
+      />
+      <input type="text" id="signature" name="signature" required />
+      <button type="button" onclick="handleClick()">Create Key</button>
+      <input value="Submit" type="submit" />
+    </form>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+      integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/hmac-sha256.min.js"
+      integrity="sha512-HMqYytekgCbPoNWBm9oazvuOJ8sFpw+FWBHRi2QM0f/bV5djDV1sRzWzu5Jq7MAUlm+zDAUCgi/vHBBlUGLroQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/enc-base64.min.js"
+      integrity="sha512-m/shICarVhgGKyAmv7SlfXVinPq1eNVh4aPdBpGw6lqT3lh/hYtZJ+HaX6DuxjN8o7giM9mfpZQf314bErdGUg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      function handleClick() {
+        const totalAmt = document.getElementById("total_amount").value;
+        const transactionUuid =
+          document.getElementById("transaction_uuid").value;
+        const productCode = document.getElementById("product_code").value;
+
+        const message = `total_amount=${totalAmt},transaction_uuid=${transactionUuid},product_code=${productCode}`;
+
+        const merchantKey = "8gBm/:&EnhH.1/q"; // merchant key for UAT
+
+        var hash = CryptoJS.HmacSHA256(message, merchantKey);
+        var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+        console.log(hashInBase64);
+        const signatureElement = document.getElementById("signature");
+        signatureElement.value = hashInBase64;
+      }
+    </script>
+  </body>
+</html>
